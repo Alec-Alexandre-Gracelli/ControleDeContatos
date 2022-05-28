@@ -11,6 +11,12 @@ namespace ControleDeContatos.Repositorio
         {
             _bancoContext = bancoContext;
         }
+
+        public List<Contato> BuscarTodos()
+        {
+            return _bancoContext.Contatos.ToList();
+        }
+
         public Contato Adicionar(Contato contato)
         {
             _bancoContext.Contatos.Add(contato);
