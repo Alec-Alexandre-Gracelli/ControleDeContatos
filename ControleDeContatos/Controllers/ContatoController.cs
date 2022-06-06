@@ -7,10 +7,12 @@ namespace ControleDeContatos.Controllers
     public class ContatoController : Controller
     {
         private readonly IContatoRepositorio _contatoRepositorio;
+
         public ContatoController(IContatoRepositorio contatoRepositorio)
         {
             _contatoRepositorio = contatoRepositorio;
         }
+
         public IActionResult Index()
         {
             List<Contato> contatos = _contatoRepositorio.BuscarTodos();
@@ -21,19 +23,37 @@ namespace ControleDeContatos.Controllers
         {
             return View();
         }
+
+        public IActionResult Editar(int id)
+        {
+            Contato contato = _contatoRepositorio.ListarPorId(id);
+            return View(contato);
+        }
+
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            Contato contato = _contatoRepositorio.ListarPorId(id);
+            return View(contato);
+        }
+
+        public IActionResult Apagar(int id)
+        {
+            _contatoRepositorio.Apagar(id);
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult Criar(Contato contato)
         {
             _contatoRepositorio.Adicionar(contato);
             return RedirectToAction("Index");
         }
-        public IActionResult Editar()
+
+        [HttpPost]
+        public IActionResult Alterar(Contato contato)
         {
-            return View();
-        }
-        public IActionResult ApagarConfirmacao()
-        {
-            return View();
+            _contatoRepositorio.Atualizar(contato);
+            return RedirectToAction("Index");
         }
     }
 }
