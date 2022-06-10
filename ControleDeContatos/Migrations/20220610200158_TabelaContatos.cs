@@ -4,7 +4,7 @@
 
 namespace ControleDeContatos.Migrations
 {
-    public partial class CriandoTabelaContatos : Migration
+    public partial class TabelaContatos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
