@@ -4,7 +4,7 @@ namespace ControleDeContatos.Models
 {
     public class Contato
     {
-        public int ContatoId { get; set; }
+        public Guid ContatoId { get; set; }
 
         [Required(ErrorMessage = "Digite o nome do contato!")]
         public string Nome { get; set; }

@@ -24,13 +24,13 @@ namespace ControleDeContatos.Controllers
             return View();
         }
 
-        public IActionResult Editar(int id)
+        public IActionResult Editar(Guid id)
         {
-            Contato contato = _contatoRepositorio.ListarPorId(id);
+            Contato contato = _contatoRepositorio.BuscarPorId(id);
             return View(contato);
         }
 
-        public IActionResult Apagar(int id)
+        public IActionResult Apagar(Guid id)
         {
             try
             {
@@ -56,9 +56,9 @@ namespace ControleDeContatos.Controllers
             }
         }
 
-        public IActionResult ApagarConfirmacao(int id)
+        public IActionResult ApagarConfirmacao(Guid id)
         {
-            Contato contato = _contatoRepositorio.ListarPorId(id);
+            Contato contato = _contatoRepositorio.BuscarPorId(id);
             return View(contato);
         }
 
