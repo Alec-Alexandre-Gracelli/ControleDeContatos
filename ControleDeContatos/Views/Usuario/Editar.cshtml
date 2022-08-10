@@ -2,14 +2,15 @@
 @model Usuario
 
 @{
-    ViewData["Title"] = "Criar usuario";
+    ViewData["Title"] = "Editar usuario";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Cadastrar usuário</h1>
+    <h1 class="display-4">Editar usuário</h1>
 </div>
 
-<form asp-controller="Usuario" asp-action="Criar" method="post">
+<form asp-controller="Usuario" asp-action="Editar" method="post">
+    <input type="hidden" asp-for="UsuarioId" />
     <div class="form-group">
         <label for="nome" class="form-label">Nome</label>
         <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do usário">
@@ -42,15 +43,8 @@
     </div>
     <br />
 
-    <div class="form-group">
-        <label for="celular" class="form-label">Senha</label>
-        <input type="password" asp-for="Senha" class="form-control" placeholder="Digite a senha do usário">
-        @Html.ValidationMessageFor(x => x.Senha)
-    </div>
-    <br />
-
     <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
+        <button type="submit" class="btn btn-primary btn-block">Editar</button>
         <a class="btn btn-secondary" asp-controller="Usuario" asp-action="Index" role="button">Voltar</a>
     </div>
 </form>
