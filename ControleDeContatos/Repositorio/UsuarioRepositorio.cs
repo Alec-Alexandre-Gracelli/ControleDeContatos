@@ -12,6 +12,11 @@ namespace ControleDeContatos.Repositorio
             _context = bancoContext;
         }
 
+        public Usuario BuscarPorLogin(string login)
+        {
+            return _context.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
+        }
+
         public Usuario BuscarPorId(Guid id)
         {
             return _context.Usuarios.FirstOrDefault(x => x.UsuarioId == id);
