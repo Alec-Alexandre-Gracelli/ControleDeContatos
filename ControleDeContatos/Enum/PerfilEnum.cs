@@ -1,4 +1,4 @@
-﻿namespace ControleDeContatos.Enums
+﻿namespace ControleDeContatos.Enum
 {
     public enum PerfilEnum
     {

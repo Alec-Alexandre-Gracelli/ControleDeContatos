@@ -1,4 +1,4 @@
-﻿using ControleDeContatos.Enums;
+﻿using ControleDeContatos.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeContatos.Models
