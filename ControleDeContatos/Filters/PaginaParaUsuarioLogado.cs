@@ -12,7 +12,7 @@ namespace ControleDeContatos.Filters
             string sessaoUsuario = context.HttpContext.Session.GetString("sessaoUsuarioLogado");
             if (string.IsNullOrEmpty(sessaoUsuario))
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Login" }, { "action", "Index" } });
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Account" }, { "action", "Index" } });
             }
             else
             {
@@ -20,7 +20,7 @@ namespace ControleDeContatos.Filters
 
                 if (usuario == null)
                 {
-                    context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Login" }, { "action", "Index" } });
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Account" }, { "action", "Index" } });
                 }
             }
             base.OnActionExecuting(context);
