@@ -2,6 +2,7 @@
 using ControleDeContatos.Models;
 using ControleDeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
 
 namespace ControleDeContatos.Controllers
 {
@@ -21,6 +22,11 @@ namespace ControleDeContatos.Controllers
             //Se usuario estiver logado, redirecionar para a home
 
             if (_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        public IActionResult RedefinirSenha()
+        {
             return View();
         }
 
@@ -62,5 +68,31 @@ namespace ControleDeContatos.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        public IActionResult EnviarLinkParaRedefinirSenha(RedefinirSenha redefinirSenha)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    Usuario usuario = _usuarioRepositorio.BuscarPorLogin(redefinirSenha.Login);
+
+                    if (usuario != null)
+                    {                        
+                    }
+
+                    TempData["MensagemErro"] = $"Não conseguimos redefinir sua senha. Por favor, verifique os dados informados";
+                }
+                return View("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos redefinir sua senha, tente novamente, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
+        }
     }
-}
+    }
+
