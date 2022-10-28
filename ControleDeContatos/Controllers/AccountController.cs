@@ -10,11 +10,14 @@ namespace ControleDeContatos.Controllers
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         private readonly ISessao _sessao;
+        private readonly IEmail _email;
         public AccountController(IUsuarioRepositorio usuarioRepositorio,
-            ISessao sessao)
+            ISessao sessao,
+            IEmail email)
         {
             _usuarioRepositorio = usuarioRepositorio;
             _sessao = sessao;
+            _email = email;
         }
 
         public IActionResult Index()
@@ -77,13 +80,28 @@ namespace ControleDeContatos.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    Usuario usuario = _usuarioRepositorio.BuscarPorLogin(redefinirSenha.Login);
+                    Usuario usuario = _usuarioRepositorio.BuscaPorEmailELogin(redefinirSenha.Email, redefinirSenha.Login);
 
                     if (usuario != null)
-                    {                        
+                    {
+                        string novaSenha = usuario.GerarNovaSenha();
+                        string mensagem = $"Sua nova senha é: {novaSenha}";
+
+                        bool emailEnviado = _email.Enviar(usuario.Email, "Sistema de Contatos - Nova Senha", mensagem);
+
+                        if (emailEnviado)
+                        {
+                            _usuarioRepositorio.Atualizar(usuario);
+                            TempData["MensagemSucesso"] = "Enviamos para seu e-mail cadastrado uma nova senha.";
+                        }
+                        else
+                        {
+                            TempData["MensagemErro"] = "Não conseguimos enviar o e-mail. Por favor, tente novamente.";
+                        }
+                        return RedirectToAction("Index", "Account");
                     }
 
-                    TempData["MensagemErro"] = $"Não conseguimos redefinir sua senha. Por favor, verifique os dados informados";
+                    TempData["MensagemErro"] = "Não conseguimos redefinir sua senha. Por favor, verifique os dados informados.";
                 }
                 return View("Index");
             }
@@ -94,5 +112,5 @@ namespace ControleDeContatos.Controllers
             }
         }
     }
-    }
+}
 
