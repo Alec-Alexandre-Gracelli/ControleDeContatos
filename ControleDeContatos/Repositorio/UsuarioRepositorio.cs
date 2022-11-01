@@ -3,7 +3,7 @@ using ControleDeContatos.Models;
 
 namespace ControleDeContatos.Repositorio
 {
-    public class UsuarioRepositorio :IUsuarioRepositorio
+    public class UsuarioRepositorio : IUsuarioRepositorio
     {
         private readonly BancoContext _context;
 
@@ -58,6 +58,25 @@ namespace ControleDeContatos.Repositorio
 
             return usuarioDB;
 
+        }
+
+        public Usuario AlterarSenha(AlterarSenha alterarSenha)
+        {
+            Usuario usuarioDB = BuscarPorId(alterarSenha.AlterarSenhaId);
+
+            if (usuarioDB == null) throw new Exception("Houve um erro na atualização da senha, usuário não encontrado!");
+
+            if (!usuarioDB.SenhaValida(alterarSenha.SenhaAtual)) throw new Exception("Senha atual não confere!");
+
+            if (usuarioDB.SenhaValida(alterarSenha.NovaSenha)) throw new Exception("Nova senha deve ser diferente da senha atual!");
+
+            usuarioDB.SetNovaSenha(alterarSenha.NovaSenha);
+            usuarioDB.DataAtualizacao = DateTime.Now;
+
+            _context.Usuarios.Update(usuarioDB);
+            _context.SaveChanges();
+
+            return usuarioDB;
         }
 
         public bool Apagar(Guid id)

@@ -13,21 +13,21 @@
     <input type="hidden" asp-for="UsuarioId" />
     <div class="form-group">
         <label for="nome" class="form-label">Nome</label>
-        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do usário">
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do usuário">
         @Html.ValidationMessageFor(x => x.Nome)
     </div>
     <br />
 
     <div class="form-group">
         <label for="email" class="form-label">Email</label>
-        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o e-mail do usário">
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o e-mail do usuário">
         @Html.ValidationMessageFor(x => x.Email)
     </div>
     <br />
 
     <div class="form-group">
         <label for="celular" class="form-label">Login</label>
-        <input type="text" asp-for="Login" class="form-control" placeholder="Digite o login do usário">
+        <input type="text" asp-for="Login" class="form-control" placeholder="Digite o login do usuário">
         @Html.ValidationMessageFor(x => x.Login)
     </div>
     <br />

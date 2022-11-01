@@ -10,6 +10,7 @@ namespace ControleDeContatos.Repositorio
         Usuario BuscarPorId(Guid id);
         Usuario Adicionar(Usuario usuario);
         Usuario Atualizar(Usuario usuario);
+        Usuario AlterarSenha(AlterarSenha alterarSenha);
         bool Apagar(Guid id);
     }
 }
